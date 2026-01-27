@@ -11,9 +11,11 @@ let state = {
 
 function maskDatabaseUrl(url) {
   // masks passwords in URLs like: protocol://user:pass@host/db
-  return url.replace(/:\/\/([^:]+):([^@]+)@/g, "://$1:****@");
+  return url.replace(/:\/\/([^:]+):([^@]+)@/g, "://$1:***@");
 }
 
+// NOTE: Checkpoint 2 mock only — this does NOT connect to a real database.
+// It only checks whether DATABASE_URL is set and looks like a valid URL.
 function checkConnection() {
   const url = process.env.DATABASE_URL;
 
@@ -27,7 +29,7 @@ function checkConnection() {
   }
 
   // basic validation (still mock)
-  const looksLikeUrl = /^([a-z]+):\/\//i.test(url);
+  const looksLikeUrl = /^([a-z]+):\/\/./i.test(url);
 
   if (!looksLikeUrl) {
     state.connected = false;
