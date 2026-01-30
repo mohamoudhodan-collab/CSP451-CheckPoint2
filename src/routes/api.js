@@ -8,8 +8,21 @@ const router = express.Router();
  * - add route modules, controllers, and validation
  * - add at least one POST endpoint
  */
+
+// GET endpoint
 router.get("/health", (req, res) => {
-  res.json({ status: "ok", time: new Date().toISOString() });
+  res.json({
+    status: "ok",
+    time: new Date().toISOString(),
+  });
+});
+
+// POST endpoint (REQUIRED for Checkpoint 2)
+router.post("/echo", (req, res) => {
+  res.json({
+    message: "POST endpoint working",
+    received: req.body,
+  });
 });
 
 module.exports = { router };
