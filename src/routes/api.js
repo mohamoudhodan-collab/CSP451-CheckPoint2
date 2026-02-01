@@ -1,12 +1,12 @@
-const express = require("express");
+// src/routes/api.js
 
+const express = require("express");
 const router = express.Router();
+
+const { apiKeyAuth } = require("../middleware/apiKeyAuth");
 
 /**
  * Starter endpoint to prove the API works.
- * Feature branch: feature/api-endpoints should expand this structure:
- * - add route modules, controllers, and validation
- * - add at least one POST endpoint
  */
 
 // GET endpoint
@@ -22,6 +22,15 @@ router.post("/echo", (req, res) => {
   res.json({
     message: "POST endpoint working",
     received: req.body,
+  });
+});
+
+// Protected endpoint (Authentication proof)
+router.get("/me", apiKeyAuth, (req, res) => {
+  res.json({
+    user: "demo-user",
+    auth: "api key",
+    note: "If API_KEY is set, this route requires header x-api-key",
   });
 });
 
